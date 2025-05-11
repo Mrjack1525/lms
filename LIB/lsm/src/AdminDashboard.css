@@ -1,0 +1,253 @@
+.admin-dashboard {
+
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+  padding: 40px;
+
+  background: linear-gradient(145deg, #f0f4f8, #e2eaf3);
+
+  min-height: 100vh;
+
+  box-sizing: border-box;
+
+}
+
+
+
+.admin-dashboard h1 {
+
+  text-align: center;
+
+  margin-bottom: 30px;
+
+  color: #182636;
+
+  font-size: 2rem;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+}
+
+
+
+.admin-dashboard form {
+
+  display: flex;
+
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 10px;
+
+  margin-bottom: 30px;
+
+}
+
+
+
+.admin-dashboard input,
+
+.admin-dashboard select {
+
+  padding: 10px 14px;
+
+  font-size: 15px;
+
+  border-radius: 6px;
+
+  border: 1px solid #ccc;
+
+  min-width: 150px;
+
+  background-color: #ffffff;
+
+  transition: border 0.3s ease;
+
+}
+
+
+
+.admin-dashboard input:focus,
+
+.admin-dashboard select:focus {
+
+  outline: none;
+
+  border-color: #4a90e2;
+
+  box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+
+}
+
+
+
+.admin-dashboard button {
+
+  padding: 10px 16px;
+
+  font-size: 14px;
+
+  font-weight: 500;
+
+  background: linear-gradient(to right, #4caf50, #2e7d32);
+
+  color: white;
+
+  border: none;
+
+  border-radius: 6px;
+
+  cursor: pointer;
+
+  transition: background 0.3s;
+
+}
+
+
+
+.admin-dashboard button:hover {
+
+  background: linear-gradient(to right, #388e3c, #1b5e20);
+
+}
+
+
+
+.admin-dashboard table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  background-color: #ffffff;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  border-radius: 8px;
+
+  overflow: hidden;
+
+}
+
+
+
+.admin-dashboard th,
+
+.admin-dashboard td {
+
+  padding: 14px 12px;
+
+  text-align: center;
+
+  border-bottom: 1px solid #ececec;
+
+}
+
+
+
+.admin-dashboard th {
+
+  background-color: #2c3e50;
+
+  color: #ecf0f1;
+
+  font-size: 14px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+
+}
+
+
+
+.admin-dashboard td {
+
+  background-color: #fdfdfd;
+
+  color: #333;
+
+}
+
+
+
+.admin-dashboard img {
+
+  max-width: 50px;
+
+  border-radius: 4px;
+
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.admin-dashboard .edit-btn,
+
+.admin-dashboard .save-btn,
+
+.admin-dashboard .delete-btn {
+
+  padding: 6px 12px;
+
+  font-size: 13px;
+
+  border: none;
+
+  border-radius: 4px;
+
+  cursor: pointer;
+
+  margin: 0 4px;
+
+  transition: transform 0.2s, box-shadow 0.2s;
+
+}
+
+
+
+.admin-dashboard .edit-btn:hover,
+
+.admin-dashboard .save-btn:hover,
+
+.admin-dashboard .delete-btn:hover {
+
+  transform: scale(1.05);
+
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+
+
+.edit-btn {
+
+  background-color: #3498db;
+
+  color: white;
+
+}
+
+
+
+.save-btn {
+
+  background-color: #f39c12;
+
+  color: white;
+
+}
+
+
+
+.delete-btn {
+
+  background-color: #e74c3c;
+
+  color: white;
+
+}
