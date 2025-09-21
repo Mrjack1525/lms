@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+import Navbar from './Navbar';
 import './AdminDashboard.css';
 
 export default function AdminDashboard() {
   const [books, setBooks] = useState([]);
-  const [form, setForm] = useState({
-    title: '',
-    author: '',
-    category: '',
-    status: 'Available',
-    quantity: 1,
-    cover: ''
-  });
+  const [form, setForm] = useState({ title: '', author: '', category: '', status: 'Available', quantity: 1, cover: '' });
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetchBooks();
+  }, []);
 
   const fetchBooks = () => {
     axios.get('http://localhost:7777/api/books')
@@ -19,13 +19,7 @@ export default function AdminDashboard() {
       .catch(err => console.error(err));
   };
 
-  useEffect(() => {
-    fetchBooks();
-  }, []);
-
-  const handleChange = e => {
-    setForm({ ...form, [e.target.name]: e.target.value });
-  };
+  const handleChange = e => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handleAddBook = () => {
     axios.post('http://localhost:7777/api/books', form)
@@ -35,10 +29,7 @@ export default function AdminDashboard() {
       });
   };
 
-  const handleDelete = id => {
-    axios.delete(`http://localhost:7777/api/books/${id}`)
-      .then(() => fetchBooks());
-  };
+  const handleDelete = id => axios.delete(`http://localhost:7777/api/books/${id}`).then(() => fetchBooks());
 
   const handleUpdate = id => {
     axios.put(`http://localhost:7777/api/books/${id}`, form)
@@ -48,8 +39,14 @@ export default function AdminDashboard() {
       });
   };
 
+  const logout = () => {
+    sessionStorage.clear();
+    navigate('/');
+  };
+
   return (
     <div className="admin-dashboard">
+      <Navbar isAdmin={true} />
       <h1>📚 Admin Book Management</h1>
 
       <div className="form-section">
@@ -80,21 +77,23 @@ export default function AdminDashboard() {
         <tbody>
           {books.map(b => (
             <tr key={b.id}>
-              <td><img src={b.cover || '/default.jpg'} alt={b.title} width="50" /></td>
+              <td><img src={b.cover || '/default.jpg'} alt={b.title} /></td>
               <td>{b.title}</td>
               <td>{b.author}</td>
               <td>{b.category}</td>
               <td>{b.status}</td>
               <td>{b.quantity}</td>
               <td>
-                <button onClick={() => setForm(b)}>Edit</button>
-                <button onClick={() => handleUpdate(b.id)}>Save</button>
-                <button onClick={() => handleDelete(b.id)}>Delete</button>
+                <button className="edit-btn" onClick={() => setForm(b)}>Edit</button>
+                <button className="save-btn" onClick={() => handleUpdate(b.id)}>Save</button>
+                <button className="delete-btn" onClick={() => handleDelete(b.id)}>Delete</button>
               </td>
             </tr>
           ))}
         </tbody>
       </table>
+
+      <button onClick={logout} className="logout-button">Logout</button>
     </div>
   );
 }

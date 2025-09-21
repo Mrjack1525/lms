@@ -4,11 +4,13 @@ import "./SignUp.css";
 import { useNavigate } from "react-router-dom";
 
 const SignUp = ({ onClose }) => {
-    const navigate = useNavigate();
-    const [formData, setFormData] = useState({
-    fullname: "",
+  const navigate = useNavigate();
+  const [formData, setFormData] = useState({
+    name: "",
     email: "",
     password: "",
+    confirmPassword: "",
+    role: "",   // 👈 added role here
   });
 
   const handleChange = (e) => {
@@ -24,7 +26,7 @@ const SignUp = ({ onClose }) => {
     }
 
     const data = JSON.stringify({
-      fullname: formData.fullname,
+      name: formData.name,
       email: formData.email,
       password: formData.password,
       role: formData.role,
@@ -54,8 +56,8 @@ const SignUp = ({ onClose }) => {
             Full Name:
             <input
               type="text"
-              name="fullname"
-              value={formData.fullname}
+              name="name"
+              value={formData.name}
               onChange={handleChange}
               required
               placeholder="Enter your full name"
@@ -94,12 +96,20 @@ const SignUp = ({ onClose }) => {
               placeholder="Confirm your password"
             />
           </label>
-          <label>Select Role*</label>
-                  <select id='role'>
-                    <option value=''> </option>
-                    <option value='1'>Admin</option>
-                    <option value='2'>User</option>
-                  </select><br/><br/>
+          <label>
+            Select Role*
+            <select
+              name="role"
+              value={formData.role}
+              onChange={handleChange}
+              required
+            >
+              <option value="">-- Select Role --</option>
+              <option value="1">Admin</option>
+              <option value="2">User</option>
+            </select>
+          </label>
+          <br />
           <div className="button-group">
             <button type="submit" className="submit-btn">Register</button>
             <button type="button" onClick={onClose} className="cancel-btn">Cancel</button>

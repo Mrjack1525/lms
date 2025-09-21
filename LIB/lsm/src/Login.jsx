@@ -14,27 +14,45 @@ const Login = ({ onClose }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    console.log("🔹 Login button clicked");
+    console.log("Form data being sent:", formData);
+
     const data = JSON.stringify({
       email: formData.email,
       password: formData.password,
     });
 
     try {
-      const res = await callApi("POST", "http://localhost:7777/users/signin", data);
+      const res = await callApi(
+        "POST",
+        "http://localhost:7777/users/signin",
+        data
+      );
+
+      console.log("🔹 Raw API response:", res);
+
       const rdata = res.split("::");
+      console.log("🔹 Parsed response:", rdata);
 
       if (rdata[0] === "200") {
+        console.log("✅ Login successful, saving session...");
         sessionStorage.setItem("csrid", rdata[1]);
+
         if (rdata[2] === "1") {
+          console.log("Navigating to /adminDashboard");
           navigate("/adminDashboard");
         } else if (rdata[2] === "2") {
+          console.log("Navigating to /userDashboard");
           navigate("/userDashboard");
+        } else {
+          console.warn("⚠️ Unknown role received:", rdata[2]);
         }
       } else {
+        console.warn("❌ Login failed:", res);
         alert("Login failed. Please try again.");
       }
     } catch (error) {
-      console.error("Login error:", error);
+      console.error("🚨 Login error:", error);
       alert("An error occurred during login.");
     }
   };
@@ -76,8 +94,12 @@ const Login = ({ onClose }) => {
               />
             </label>
             <div className="button-group">
-              <button type="submit" className="submit-btn">Login</button>
-              <button type="button" onClick={onClose} className="cancel-btn">Cancel</button>
+              <button type="submit" className="submit-btn">
+                Login
+              </button>
+              <button type="button" onClick={onClose} className="cancel-btn">
+                Cancel
+              </button>
             </div>
           </form>
         </div>
