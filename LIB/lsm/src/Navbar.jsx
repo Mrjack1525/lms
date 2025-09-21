@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 
-const Navbar = ({ isAdmin }) => {
+const Navbar = ({ isAdmin = false, onBrowseSelect }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -20,11 +20,35 @@ const Navbar = ({ isAdmin }) => {
       <ul className="nav-links">
         <li><a href="#">My Books</a></li>
         <li className="dropdown">
-          <a href="#">Browse ▼</a>
+          <button>Browse ▼</button>
           <ul className="dropdown-menu">
-            <li><a href="#">Trending</a></li>
-            <li><a href="#">Classic</a></li>
-            <li><a href="#">Genres</a></li>
+            <li>
+              <button
+                onClick={() => {
+                  if (onBrowseSelect) onBrowseSelect("Trending");
+                }}
+              >
+                Trending
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  if (onBrowseSelect) onBrowseSelect("Classic");
+                }}
+              >
+                Classics
+              </button>
+            </li>
+            <li>
+              <button
+                onClick={() => {
+                  if (onBrowseSelect) onBrowseSelect("Kids");
+                }}
+              >
+                Kids
+              </button>
+            </li>
           </ul>
         </li>
       </ul>

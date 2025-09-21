@@ -7,8 +7,7 @@ function Home2() {
   return (
     <div className="app">
       {/* Background Video */}
-      
-      <video autoPlay loop muted className="background-video">
+      <video autoPlay loop muted playsInline className="background-video">
         <source
           src="/vecteezy_4k-slow-motion-of-open-book-with-blank-page-on-black_9295506.mp4"
           type="video/mp4"
@@ -20,7 +19,7 @@ function Home2() {
       {/* Navbar */}
       <nav className="navbar2">
         <div className="nav-links">
-          <img src="./library-logo.png" alt="Library Logo" className="logo" />
+          <img src="./openlibrary-logo.png" alt="Library Logo" className="logo" />
           <a href="#home" className="active">Home</a>
           <a href="#about">About</a>
           <a href="#collections">Collections</a>

@@ -22,12 +22,16 @@ export default function UserDashboard() {
       .then((res) => setFullname(res))
       .catch(() => setFullname("User"));
 
-    // Fetch all books dynamically from API
+    // Fetch all books dynamically
     fetch("http://localhost:7777/api/books")
       .then((res) => res.json())
       .then((data) => setBooks(data))
       .catch((err) => console.error(err));
   }, [navigate]);
+
+  // Group books by category
+  const groupByCategory = (category) =>
+    books.filter((book) => book.category.toLowerCase() === category.toLowerCase());
 
   const handleStatusClick = (book) => {
     const msg = `"${book.title}" by ${book.author}\nQuantity: ${book.quantity} ${
@@ -36,30 +40,41 @@ export default function UserDashboard() {
     alert(msg);
   };
 
+  // Categories to display
+  const categories = ["Trending", "Classic", "Kids"];
+
   return (
     <div className="dashboard-background">
       <div className="openlibrary-dashboard">
         <Navbar isAdmin={false} />
         <h2>Welcome, {fullname}</h2>
 
-        <section className="book-section">
-          <h3>All Books</h3>
-          <div className="book-list-scroll">
-            {books.map((book, index) => (
-              <div key={index} className="book-card">
-                <img src={book.cover || "/default.jpg"} alt={book.title} />
-                <h4>{book.title}</h4>
-                <p>{book.author}</p>
-                <button
-                  className={`book-status ${book.status.toLowerCase().replace(" ", "-")}`}
-                  onClick={() => handleStatusClick(book)}
-                >
-                  {book.status}
-                </button>
+        {categories.map((cat) => {
+          const catBooks = groupByCategory(cat);
+          if (catBooks.length === 0) return null;
+          return (
+            <section className="book-section" key={cat}>
+              <h3>{cat} Books</h3>
+              <div className="book-list-scroll">
+                {catBooks.map((book, index) => (
+                  <div key={index} className="book-card">
+                    <img src={book.cover || "/default.jpg"} alt={book.title} />
+                    <h4>{book.title}</h4>
+                    <p>{book.author}</p>
+                    <button
+                      className={`book-status ${book.status
+                        .toLowerCase()
+                        .replace(" ", "-")}`}
+                      onClick={() => handleStatusClick(book)}
+                    >
+                      {book.status}
+                    </button>
+                  </div>
+                ))}
               </div>
-            ))}
-          </div>
-        </section>
+            </section>
+          );
+        })}
       </div>
     </div>
   );
